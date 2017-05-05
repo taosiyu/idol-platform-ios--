@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.white
+        
+        _ = HttpClient_Alamofire.dataList(params: nil, success: { (dataObjc) in
+            print(dataObjc)
+        }, failed: { (err) in
+            
+        }, errorClo: { (code, msg) in
+            
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {
