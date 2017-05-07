@@ -12,6 +12,8 @@ class MainTabBarCtr: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBar.backgroundImage = UIImage.imageWithColor(color: UIColor.init(white: 1, alpha: 0.4))
 
         self.setupChildController()
     }
@@ -70,6 +72,14 @@ class MainTabBarCtr: UITabBarController {
 
 extension MainTabBarCtr:UITabBarControllerDelegate{
     
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
+    }
+
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
         //获取控制器索引

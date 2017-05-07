@@ -21,7 +21,10 @@ class API: NSObject {
     
     //class name:NSObject 下面是所有用到的api
     class data: NSObject {
-        static let list = "/list"         //所有文章
+        static let list = "/list"                           //所有文章
+        static let blog = "/list?type=blog"                 //博客文章
+        static let news = "/list?type=news"                 //新闻文章
+        static let magazine = "/list?type=magazine"         //杂志文章
     }
 
 }

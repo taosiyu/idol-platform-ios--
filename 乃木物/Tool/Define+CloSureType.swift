@@ -14,7 +14,7 @@ import UIKit
 typealias Dic               = [String: AnyObject]?
 typealias Eic               = [String: AnyObject]
 
-typealias SuccessedClosure = (_ dataObj: [String: AnyObject]) -> Void
+typealias SuccessedClosure = (_ dataObj: [String: Any]) -> Void
 typealias ErrorClosure = (_ statusCode: Int, _ message: String) -> Void
 typealias FailedClosure = (_ error: NSError) -> Void
 

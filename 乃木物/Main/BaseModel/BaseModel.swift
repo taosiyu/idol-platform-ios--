@@ -8,11 +8,11 @@
 
 import ObjectMapper
 
-class BaseModel: NSObject,BaseMappable{
+class BaseModel: NSObject,Mappable{
     
     var id = -1
     
-    required init?(_ map: Map) {
+    required init?(map: Map) {
     }
     
     func mapping(map: Map) {

@@ -25,6 +25,11 @@ class HttpClient_Alamofire: NSObject {
         return HttpClient_Alamofire.requestGET(urlStr: API.data.list, params: params, success:success, failed: failed, error: errorClo)
     }
     
+    //MARK:博客文章
+    static func blogList(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.data.list, params: params, success:success, failed: failed, error: errorClo)
+    }
+    
 //    //MARK:身份证属地
 //    static func idCardFind(idcard:String,success:SuccessedClosure,failed:FailedClosure,errorClo:ErrorClosure){
 //        
@@ -155,16 +160,16 @@ class HttpClient_Alamofire: NSObject {
                     print("--======\(Response.response?.statusCode)")
                     if Response.response?.statusCode == 204 {
                         if let block = success {
-                            block([String: AnyObject]())
+                            block([String: Any]())
                         }
                         return
                     }
                     if let block = success{
                         if Response.response?.statusCode == 200{
-                            if let resp = (Response.result.value! as? [String: AnyObject]) {
+                            if let resp = (Response.result.value! as? [String: Any]) {
                                 block(resp)
-                            }else if let data = Response.result.value! as? [AnyObject] {
-                                block(["results":data as AnyObject])
+                            }else if let data = Response.result.value! as? [Any] {
+                                block(["results":data as Any])
                             }
                         }
                     }

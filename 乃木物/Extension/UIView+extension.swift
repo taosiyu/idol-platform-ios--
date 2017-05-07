@@ -13,5 +13,9 @@ extension UIView {
     func removeAllSubviews() {
         subviews.forEach({ $0.removeFromSuperview() })
     }
+    
+    func moveToFront() {
+        self.superview?.bringSubview(toFront: self)
+    }
 
 }
