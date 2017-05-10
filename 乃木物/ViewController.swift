@@ -18,22 +18,6 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.white
         
-        _ = HttpClient_Alamofire.dataList(params: nil, success: { (dataObjc) in
-            print(dataObjc)
-            if let models = Mapper<DataListModel>().mapArray(JSONObject: dataObjc.results){
-            print(models)
-                for item in models{
-                    print(item.delivery)
-                    print(item.title)
-                    print(item.subtitle)
-                    print(item.summary)
-                }
-            }
-        }, failed: { (err) in
-            
-        }, errorClo: { (code, msg) in
-            
-        })
         
     }
 

@@ -8,9 +8,16 @@
 
 import ObjectMapper
 
+class ModelFactory: NSObject {
+    static func new<T: BaseModel>(type: T.Type) -> T {
+        let model = Mapper<T>().map(JSON: ["id": "-1"])!
+        return model
+    }
+}
+
 class BaseModel: NSObject,Mappable{
     
-    var id = -1
+    var id = ""
     
     required init?(map: Map) {
     }

@@ -9,13 +9,16 @@
 import UIKit
 
 class MainTabBarCtr: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabBar.backgroundImage = UIImage.imageWithColor(color: UIColor.init(white: 1, alpha: 0.4))
+        
+        self.delegate = self
 
         self.setupChildController()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,13 +27,12 @@ class MainTabBarCtr: UITabBarController {
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
-        
         return .portrait
     }
     
     func setupChildController(){
         
-        let array = [["clsName":"ViewController","title":"home","imageName":"1"],["clsName":"ViewController","title":"home","imageName":"1"],["clsName":"ViewController","title":"home","imageName":"1"]]
+        let array = [["clsName":"TitlesSelectTabbarCtr","title":"乃木物","imageName":"home_Icon"],["clsName":"MembersCtr","title":"官博","imageName":"blog_Icon"],["clsName":"ViewController","title":"我的","imageName":"my_Icon"]]
         
         var arrayVC = [UIViewController]()
         for dict in array{
@@ -58,11 +60,13 @@ class MainTabBarCtr: UITabBarController {
         let vc = cls.init()
         vc.title = title
         
-        vc.tabBarItem.image = UIImage(named: ""+imageName)
+        vc.tabBarItem.image = UIImage(named:imageName+"_normal")
+        vc.tabBarItem.selectedImage = UIImage(named:imageName)?.withRenderingMode(.alwaysOriginal)
+        //字体颜色
+        let dic = [NSForegroundColorAttributeName:UIColor.rgbColor(rgbValue: 0xd4237a)]
+        vc.tabBarItem.setTitleTextAttributes(dic, for: UIControlState.selected)
         
-        vc.tabBarItem.selectedImage = UIImage(named: ""+imageName)?.withRenderingMode(.alwaysOriginal)
-        
-        let nvc = UINavigationController.init(rootViewController: vc)
+        let nvc = HitBaseNavCtr.init(rootViewController: vc)
         
         return nvc
         

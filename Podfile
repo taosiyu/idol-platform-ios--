@@ -10,5 +10,6 @@ pod ‘MJRefresh’
 pod ‘SwiftyJSON’
 pod ‘ObjectMapper’
 pod ‘SDWebImage’
+pod ’YYWebImage‘
 
 end

@@ -2,8 +2,8 @@
 //  TableViewDataSource.swift
 //  NewChama
 //
-//  Created by ncm on 2017/4/17.
-//  Copyright © 2017年 com.NewChama. All rights reserved.
+//  Created by tsy on 2017/5/7.
+//  Copyright © 2017年 TSY. All rights reserved.
 //
 
 import UIKit

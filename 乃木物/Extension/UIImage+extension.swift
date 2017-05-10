@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreImage
 
 extension UIImage {
     
@@ -39,5 +40,28 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return nil
     }
-
+    
+    //MARK:模糊图片
+    func blurImageWithLevel(level: CGFloat) -> UIImage {
+        
+        guard let inputImg = CIImage.init(image: self) else {
+            return self
+        }
+        //创建高斯模糊滤镜
+        guard let filter = CIFilter(name: "CIGaussianBlur") else {
+            return self
+        }
+        
+        filter.setValue(inputImg, forKey: kCIInputImageKey)
+        filter.setValue(level, forKey: "inputRadius")
+        
+        guard let outputImg = filter.outputImage else {
+            return self
+        }
+        //生成模糊图片
+        let context = CIContext(options: nil)
+        let theCgImg = context.createCGImage(outputImg, from: inputImg.extent)
+        
+        return UIImage.init(cgImage: theCgImg!)
+    }
 }

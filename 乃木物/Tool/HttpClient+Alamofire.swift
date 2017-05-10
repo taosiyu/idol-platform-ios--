@@ -21,41 +21,47 @@ class HttpClient_Alamofire: NSObject {
     }()
     
     //MARK:全部
+    @discardableResult
     static func dataList(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
         return HttpClient_Alamofire.requestGET(urlStr: API.data.list, params: params, success:success, failed: failed, error: errorClo)
     }
     
     //MARK:博客文章
+    @discardableResult
     static func blogList(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
-        return HttpClient_Alamofire.requestGET(urlStr: API.data.list, params: params, success:success, failed: failed, error: errorClo)
+        return HttpClient_Alamofire.requestGET(urlStr: API.data.blog, params: params, success:success, failed: failed, error: errorClo)
     }
     
-//    //MARK:身份证属地
-//    static func idCardFind(idcard:String,success:SuccessedClosure,failed:FailedClosure,errorClo:ErrorClosure){
-//        
-//        let dic = ["idcard":idcard,"appkey": API.AppKey]
-//        _ = HttpClient_Alamofire.requestGET(urlStr: "", params: dic, success: { (param) in
-//            print(param)
-//        }, failed: { (er) in
-//            print(er.localizedDescription)
-//        }) { (er, lr) in
-//            print(lr)
-//        }
-//    }
-//    
-//    //MARK:银行卡归属地
-//    static func bankCardFind(bankcard:String,success:SuccessedClosure,failed:FailedClosure,errorClo:ErrorClosure){
-//        
-//        _ = HttpClient_Alamofire.requestGET(urlStr: "", params: dic, success: { (param) in
-//            print(param)
-//        }, failed: { (er) in
-//            print(er.localizedDescription)
-//        }) { (er, lr) in
-//            print(lr)
-//        }
-//    }
+    //MARK:新闻文章
+    @discardableResult
+    static func newsList(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.data.news, params: params, success:success, failed: failed, error: errorClo)
+    }
     
+    //MARK:杂志文章
+    @discardableResult
+    static func magazineList(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.data.magazine, params: params, success:success, failed: failed, error: errorClo)
+    }
     
+    //MARK:文章详情
+    @discardableResult
+    static func dataDetail(ID:String,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        let url = "\(API.dataDetail.detail)\(ID)"
+        return HttpClient_Alamofire.requestGET(urlStr: url, params: nil, success:success, failed: failed, error: errorClo)
+    }
+    
+    //MARK:members
+    @discardableResult
+    static func membersSingleList(success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.memberList.singles, params: nil, success:success, failed: failed, error: errorClo)
+    }
+    
+    //MARK:members包括所有成员
+    @discardableResult
+    static func membersAllList(success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.memberList.details, params: nil, success:success, failed: failed, error: errorClo)
+    }
     
     //Alamofire 相关的设置
     //MARK:get请求

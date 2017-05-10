@@ -14,6 +14,7 @@ import UIKit
 typealias Dic               = [String: AnyObject]?
 typealias Eic               = [String: AnyObject]
 
+typealias VoidClosure = ()->()
 typealias SuccessedClosure = (_ dataObj: [String: Any]) -> Void
 typealias ErrorClosure = (_ statusCode: Int, _ message: String) -> Void
 typealias FailedClosure = (_ error: NSError) -> Void
@@ -25,6 +26,8 @@ let StandardDefaults = UserDefaults.standard
 let ScreenBounds     = UIScreen.main.bounds
 let ScreenWidth      = ScreenBounds.size.width
 let ScreenHeight     = ScreenBounds.size.height
+
+let PublicScale      = ScreenWidth/375.0
 
 
 //颜色

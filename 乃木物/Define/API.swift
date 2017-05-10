@@ -26,5 +26,14 @@ class API: NSObject {
         static let news = "/list?type=news"                 //新闻文章
         static let magazine = "/list?type=magazine"         //杂志文章
     }
+    
+    class dataDetail:NSObject {
+        static let detail = "/"
+    }
+    
+    class memberList:NSObject {
+        static let singles  = "/memberlist"                  //所有成员
+        static let details  = "/members"                     //所有成员(信息全面)
+    }
 
 }

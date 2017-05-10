@@ -16,19 +16,23 @@ class TitlesTabbar: UIView {
     
     fileprivate var buttons = [UIButton]()
     
-    fileprivate lazy var fontColor = UIColor.blue
+    fileprivate lazy var fontColor = UIColorFromRGB(rgbValue: 0x00a0e8)
     
     fileprivate lazy var backColor = UIColor.black
     
     fileprivate var lineWidth:CGFloat = 0
     
+    private var selectedButton = UIButton()
+    
+    var buttonClick:((Int)->())?
+    
     fileprivate var bottomLine:UIView = {
         let vc = UIView.init()
-        vc.backgroundColor = UIColor.blue
+        vc.backgroundColor = UIColorFromRGB(rgbValue: 0x00a0e8)
         return vc
     }()
     
-    var lineColor:UIColor = UIColor.blue{
+    var lineColor:UIColor = UIColorFromRGB(rgbValue: 0x00a0e8){
         didSet{
             bottomLine.backgroundColor = lineColor
         }
@@ -50,13 +54,16 @@ class TitlesTabbar: UIView {
     
     //MARK:设置button
     private func setButtonWithTitles(){
+        self.backgroundColor = UIColor.white
         if let strs = self.titiles {
             for (index,title) in strs.enumerated() {
                 let btn = UIButton.init()
                 btn.setTitle(title, for: UIControlState.normal)
-                btn.setTitleColor(fontColor, for: UIControlState.selected)
+                btn.setTitleColor(fontColor, for: UIControlState.disabled)
                 btn.setTitleColor(backColor, for: UIControlState.normal)
+                btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
                 btn.tag = index
+                btn.addTarget(self, action: #selector(buttonClick(btn:)), for: UIControlEvents.touchDown)
                 self.addSubview(btn)
                 self.buttons.append(btn)
             }
@@ -79,6 +86,35 @@ class TitlesTabbar: UIView {
         for (index,btn) in self.buttons.enumerated() {
             btn.frame = CGRect(x: CGFloat(index)*width, y: 0, width: width, height: height)
         }
+    }
+    
+    @objc fileprivate func buttonClick(btn:UIButton){
+        if let clo = buttonClick {
+            clo(btn.tag)
+        }
+        selectedButton.isEnabled = true
+        selectedButton = btn
+        selectedButton.isEnabled = false
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.curveLinear, animations: {[unowned self] in
+            self.bottomLine.frame.origin.x = btn.frame.origin.x
+        }, completion: nil)
+    }
+    
+    func setButtonLine(index:Int,present:CGFloat){
+        if present == 0{
+            let button = self.buttons[index]
+            button.sendActions(for: UIControlEvents.touchDown)
+        }else{
+            let begin = index.CF*lineWidth
+            let distance = lineWidth*present
+            self.bottomLine.frame.origin.x = begin + distance
+        }
+        
+    }
+    
+    func setBeginButton(index:Int){
+        let button = self.buttons[index]
+        button.sendActions(for: UIControlEvents.touchDown)
     }
 
 }

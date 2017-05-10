@@ -10,6 +10,14 @@ import UIKit
 
 extension UIColor {
     
+    static var mainColor:UIColor{
+        return UIColor.rgbColor(rgbValue: 0xd4237a)
+    }
+    
+    static var backColor:UIColor{
+        return UIColor.lightGray
+    }
+    
     static func rgbColor(rgbValue: Int) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,

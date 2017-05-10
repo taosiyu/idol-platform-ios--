@@ -21,6 +21,10 @@ class BaseLabel: UILabel {
         text = " "
     }
     
+    convenience init() {
+        self.init(frame:CGRect())
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,4 +38,24 @@ class BaseLabel: UILabel {
         }
     }
     
+}
+
+class BaseWrapLabel: BaseLabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setLabel()
+    }
+    
+    convenience init() {
+        self.init(frame:CGRect())
+    }
+    
+    private func setLabel(){
+        self.numberOfLines = 0
+        self.lineBreakMode = NSLineBreakMode.byWordWrapping
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

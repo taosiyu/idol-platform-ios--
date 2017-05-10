@@ -22,6 +22,13 @@ class BaseCtr: UIViewController {
         
     }
     
+    func setLeftBarItem(title:String){
+        let item = UIBarButtonItem.init(image: UIImage.init(named:"menu"), style: UIBarButtonItemStyle.done, target: self, action: nil)
+        let items = UIBarButtonItem.init(title: title, style: UIBarButtonItemStyle.done, target: self, action: nil)
+        items.isEnabled = false
+        self.navigationItem.leftBarButtonItems = [item,items]
+    }
+    
     func setupView(){
         
         
@@ -39,5 +46,10 @@ class BaseCtr: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @objc private func mySystem(){
+        
+    }
+    
     
 }
