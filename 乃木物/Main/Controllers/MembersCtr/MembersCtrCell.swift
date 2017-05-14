@@ -13,6 +13,7 @@ class MembersCtrCell: UICollectionViewCell {
     
     fileprivate var avator:UIImageView = {
         let vc = UIImageView()
+//        vc.contentMode = .scaleAspectFill
         return vc
     }()
     
@@ -49,11 +50,16 @@ class MembersCtrCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.contentView.backgroundColor = UIColor.white
         self.contentView.addSubview(self.avator)
         self.contentView.addSubview(self.nameLabel)
         self.contentView.addSubview(self.japanLabel)
         self.contentView.addSubview(self.birthLabel)
         self.contentView.addSubview(self.statusLabel)
+        self.nameLabel.backgroundColor = UIColor.white
+        self.japanLabel.backgroundColor = UIColor.white
+        self.birthLabel.backgroundColor = UIColor.white
+        self.statusLabel.backgroundColor = UIColor.white
         self.setupView()
     }
     
@@ -64,6 +70,9 @@ class MembersCtrCell: UICollectionViewCell {
     func setModel(model:MenberModel){
         self.avator.hit_setImageWithMemberString(string: model.portrait)
         self.nameLabel.text = model.name
+        self.japanLabel.isHidden = true
+        self.birthLabel.isHidden = true
+        self.statusLabel.isHidden = true
     }
     
     func setModelShowAll(model:MenberModel){
@@ -72,6 +81,9 @@ class MembersCtrCell: UICollectionViewCell {
         self.japanLabel.text = model.rome
         self.birthLabel.text = model.birthdate
         self.statusLabel.text = model.status
+        self.japanLabel.isHidden = false
+        self.birthLabel.isHidden = false
+        self.statusLabel.isHidden = false
     }
     
     private func setupView(){

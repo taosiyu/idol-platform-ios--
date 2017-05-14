@@ -26,19 +26,22 @@ class DataListCell: UITableViewCell {
     
     private lazy var imageOne:UIImageView = {
         let vc = UIImageView.init()
-        vc.contentMode = .scaleAspectFit
+        vc.contentMode = .scaleAspectFill
+        vc.clipsToBounds = true
         return vc
     }()
     
     private lazy var imageTwo:UIImageView = {
         let vc = UIImageView.init()
-        vc.contentMode = .scaleAspectFit
+        vc.contentMode = .scaleAspectFill
+        vc.clipsToBounds = true
         return vc
     }()
     
     private lazy var imageThree:UIImageView = {
         let vc = UIImageView.init()
-        vc.contentMode = .scaleAspectFit
+        vc.contentMode = .scaleAspectFill
+        vc.clipsToBounds = true
         return vc
     }()
     

@@ -50,8 +50,14 @@ class TitlesSelectTabbarCtr: UIViewController {
     }
     
     func setLeftBarItem(){
-        let item = UIBarButtonItem.init(image: UIImage.init(named:"menu"), style: UIBarButtonItemStyle.done, target: self, action: nil)
+        let item = UIBarButtonItem.init(image: UIImage.init(named:"menu"), style: UIBarButtonItemStyle.done, target: self, action: #selector(slideInOut))
         self.navigationItem.leftBarButtonItem = item
+    }
+    
+    @objc private func slideInOut(){
+        if let ctr = MainApp.window?.rootViewController as? MainTabBarCtr {
+            ctr.animationBegin()
+        }
     }
     
     //MSRK:设置顶部的按钮tabber

@@ -23,6 +23,8 @@ class WKWebViewController: UIViewController {
     
     fileprivate var model = ModelFactory.new(type: DataListModel.self)
     
+    fileprivate var blogModel = ModelFactory.new(type:BlogModel.self)
+    
     fileprivate var progressV:TSYProgressView = {
         let vc = TSYProgressView.init(progress: 0)
         vc.backgroundColor = UIColor.gray
@@ -37,6 +39,16 @@ class WKWebViewController: UIViewController {
         self.detailId = model.id
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        self.getDetailInfo()
+    }
+    
+    init(blogModel:BlogModel) {
+        self.blogModel = blogModel
+        self.theTitle = blogModel.title
+        super.init(nibName: nil, bundle: nil)
+        ThreadTool.after(time: 0.5) { 
+            self.loadBlogs()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,24 +67,26 @@ class WKWebViewController: UIViewController {
         view.addSubview(myWebView)
         myWebView.addEdesLayout(superView: self.view, offSize: 64)
         myWebView.addShadowViewWithOffset(offset: 1.5)
-//        myWebView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
         self.setupViews()
-        
         //webView
         myWebView.navigationDelegate = self
         
         myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: &myContext)
-        
-        self.getDetailInfo()
         
     }
     
     private func loadUrl(){
         if self.urlStr.isEmpty{return}
         self.myWebView.loadHTMLString(self.urlStr, baseURL: nil)
-//        let req = URLRequest.init(url: URL.init(string: self.urlStr)!)
-//        self.myWebView.load(req)
+    }
+    
+    //MARK:加载博客详情用
+    private func loadBlogs(){
+        if let url = URL.init(string: self.blogModel.url){
+            let req = URLRequest.init(url: url)
+            self.myWebView.load(req)
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -118,7 +132,6 @@ class WKWebViewController: UIViewController {
             
         }
     }
-    
 }
 
 

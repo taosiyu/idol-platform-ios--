@@ -29,6 +29,9 @@ let ScreenHeight     = ScreenBounds.size.height
 
 let PublicScale      = ScreenWidth/375.0
 
+let AppVersion       = "1.0"
+let SildeTitle       = "APP开发群 480242179"
+let SildeContent     = "https://github.com/Lemonade56/NogiZaka46"
 
 //颜色
 func UIColorFromRGB(rgbValue: Int) -> UIColor {

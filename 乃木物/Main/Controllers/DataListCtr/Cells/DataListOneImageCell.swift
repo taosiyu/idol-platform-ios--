@@ -26,7 +26,8 @@ class DataListOneImageCell: UITableViewCell {
     
     private lazy var imageOne:UIImageView = {
         let vc = UIImageView.init()
-        vc.contentMode = .scaleAspectFit
+        vc.contentMode = .scaleAspectFill
+        vc.clipsToBounds = true
         return vc
     }()
     
@@ -51,12 +52,17 @@ class DataListOneImageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        
+        self.contentView.backgroundColor = UIColor.white
         self.contentView.addSubview(self.titleLabel)
         self.contentView.addSubview(self.contentLabel)
         self.contentView.addSubview(self.timeLabel)
         self.contentView.addSubview(self.zimuLabel)
         self.contentView.addSubview(self.imageOne)
+        self.titleLabel.backgroundColor = UIColor.white
+        self.contentLabel.backgroundColor = UIColor.white
+        self.timeLabel.backgroundColor = UIColor.white
+        self.zimuLabel.backgroundColor = UIColor.white
+        self.imageOne.backgroundColor = UIColor.white
         
         self.cellinit()
     }
@@ -86,11 +92,11 @@ class DataListOneImageCell: UITableViewCell {
         self.contentLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(8)
             make.left.equalTo(conV.snp.left).offset(10)
-            make.right.equalTo(self.imageOne.snp.left).offset(-10)
+            make.right.equalTo(self.titleLabel.snp.right)
         }
         
         self.timeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.imageOne.snp.bottom).offset(8)
+            make.top.greaterThanOrEqualTo(self.imageOne.snp.bottom).offset(8)
             make.top.greaterThanOrEqualTo(self.contentLabel.snp.bottom).offset(8)
             make.left.equalTo(conV.snp.left).offset(8)
             make.bottom.equalTo(conV.snp.bottom).offset(-8)
@@ -111,6 +117,31 @@ class DataListOneImageCell: UITableViewCell {
         self.zimuLabel.text = model.provider
         if let image = model.withpic.first?.image {
             self.imageOne.hit_setImageWithString(string: image)
+            self.imageOne.isHidden = false
+            self.titleLabel.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(10)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.imageOne.snp.left).offset(-10)
+            }
+            self.timeLabel.snp.remakeConstraints { (make) in
+                make.top.greaterThanOrEqualTo(self.imageOne.snp.bottom).offset(8)
+                make.top.greaterThanOrEqualTo(self.contentLabel.snp.bottom).offset(8)
+                make.left.equalTo(self.contentView.snp.left).offset(8)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
+            }
+        }else{
+            self.imageOne.image = nil
+            self.imageOne.isHidden = true
+            self.timeLabel.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.contentLabel.snp.bottom).offset(8)
+                make.left.equalTo(self.contentView.snp.left).offset(8)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
+            }
+            self.titleLabel.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(10)
+                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(-10)
+            }
         }
     }
 

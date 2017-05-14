@@ -29,6 +29,8 @@ class API: NSObject {
     
     class dataDetail:NSObject {
         static let detail = "/"
+        
+        static let blogs  = "/blogs"                         //一个人的所有与博客
     }
     
     class memberList:NSObject {

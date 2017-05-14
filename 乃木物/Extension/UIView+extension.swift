@@ -9,7 +9,23 @@
 import UIKit
 import SnapKit
 
+let UIViewKey = "UIViewKey"
 extension UIView {
+    
+    //MARK:自定义内容
+    @discardableResult
+    func addTapCallBack(callBack: VoidClosure) -> UITapGestureRecognizer {
+        let ges = UITapGestureRecognizer()
+        addGestureRecognizer(ges)
+        objc_setAssociatedObject(self, UIViewKey, callBack, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        ges.addTarget(self, action: #selector(callBackBegin))
+        return ges
+    }
+    func callBackBegin(){
+        if let clo = objc_getAssociatedObject(self, UIViewKey) as? VoidClosure{
+            clo()
+        }
+    }
     
     func removeAllSubviews() {
         subviews.forEach({ $0.removeFromSuperview() })
@@ -19,17 +35,16 @@ extension UIView {
         self.superview?.bringSubview(toFront: self)
     }
     
-    func createSanJiao(str:String,size:CGSize) {
-        if let ctx = UIGraphicsGetCurrentContext() {
-            ctx.beginPath()
-            ctx.move(to: CGPoint(x: 0, y: size.height))
-            ctx.addLine(to: CGPoint(x: size.width, y: size.height))
-            ctx.addLine(to: CGPoint(x: size.width, y: 0))
-            ctx.setLineWidth(1)
-            ctx.setFillColor(UIColor.mainColor.cgColor)
-            ctx.fillPath()
-            ctx.strokePath()
-        }
+    //MARK:绘制定制的图形
+    func createSanJiao(size:CGSize) {
+        
+        let pathR = UIBezierPath(rect: self.bounds)
+        pathR.lineWidth = 0.5
+        let layerR = CAShapeLayer()
+        layerR.path = pathR.cgPath
+        layerR.strokeColor = UIColor.mainColor.cgColor
+        layerR.fillColor = UIColor.clear.cgColor
+        self.layer.addSublayer(layerR)
     }
     
     //MARK:添加边框间距
@@ -69,7 +84,6 @@ extension UIView {
         let width = (ScreenWidth - 40)/3
         let bound = CGRect(x: 0, y: 0, width: width, height: width)
         let borderPath = UIBezierPath.init(rect: bound)
-        print(self.bounds)
         let borderLayer = CAShapeLayer()
         borderLayer.path = borderPath.cgPath
         borderLayer.fillColor = UIColor.clear.cgColor
@@ -81,7 +95,7 @@ extension UIView {
     
     //MARK:设置圆角
     func setRoundedCorners() {
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width:30,height:30))
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width:20,height:20))
         let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath

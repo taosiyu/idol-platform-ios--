@@ -30,18 +30,18 @@ class MembersCtr: BaseCtr{
         vc.showsHorizontalScrollIndicator = false
         return vc
     }()
-    
-    //MARK:切换显示的按钮
-    fileprivate var changeButtonView:UIView = {
-        let vc = UIView()
-        vc.createSanJiao(str: "46", size: CGSize(width:40,height:40))
-        return vc
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.rgbColor(rgbValue: 0xdddddd)
-
+//        
+//        let vc = NoGiLogoView.init()
+//        vc.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        vc.layer.cornerRadius = 10
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: vc)
+//        vc.clickBlock = {[unowned self] in
+//            self.changeShowType()
+//        }
     }
     
     override func setupView() {
@@ -57,6 +57,26 @@ class MembersCtr: BaseCtr{
         
         self.dataSource = CollectionViewDataSource(collectionView: self.mainCollectionView, cellIdentier: cellID, delegate: self)
         
+    }
+    
+    override func setupEvent() {
+        super.setupEvent()
+        self.mainCollectionView.delegate = self
+    }
+    
+    private func changeShowType(){
+        self.isShowAll = !self.isShowAll
+        if self.isShowAll {
+            let layout = TSYCollectionViewFlowLayout()
+            self.mainCollectionView.setCollectionViewLayout(layout, animated: true)
+            self.mainCollectionView.isPagingEnabled = true
+            getMembersAllInfo()
+        }else{
+            let layout = MembersCtrLayout()
+            self.mainCollectionView.setCollectionViewLayout(layout, animated: true)
+            self.mainCollectionView.isPagingEnabled = false
+            getMembersInfo()
+        }
     }
     
     //MARK:获取成员信息(简略)
@@ -108,10 +128,28 @@ class MembersCtr: BaseCtr{
         if self.sourceData.count <= 0 && !self.isShowAll {
            self.getMembersInfo()
         }else if self.sourceAllData.count <= 0 && self.isShowAll{
+            let layout = TSYCollectionViewFlowLayout()
+            self.mainCollectionView.setCollectionViewLayout(layout, animated: false)
+            self.mainCollectionView.isPagingEnabled = true
             self.getMembersAllInfo()
         }
     }
 
+}
+
+extension MembersCtr:UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isShowAll && self.sourceAllData.count > 0 {
+            let objc = self.sourceAllData[indexPath.row]
+            let vc = MemberBlogsCtr.init(model: objc)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if !isShowAll && self.sourceData.count > 0{
+            let objc = self.sourceData[indexPath.row]
+            let vc = MemberBlogsCtr.init(model: objc)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 extension MembersCtr:CollectionViewDataSourceDelegate{

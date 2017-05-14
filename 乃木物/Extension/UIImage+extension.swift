@@ -64,4 +64,23 @@ extension UIImage {
         
         return UIImage.init(cgImage: theCgImg!)
     }
+    
+    func compressImage(width: CGFloat) -> UIImage {
+        let maxWidth = width;
+        let maxHeight = self.size.height;
+        var newImageSize = self.size;
+        if (self.size.width > maxWidth) {
+            newImageSize.height = newImageSize.height * maxWidth / newImageSize.width;
+            newImageSize.width = maxWidth;
+        }
+        if (newImageSize.height > maxHeight) {
+            newImageSize.width = newImageSize.width * maxHeight / newImageSize.height;
+            newImageSize.height = maxHeight;
+        }
+        UIGraphicsBeginImageContext(newImageSize);
+        self.draw(in: CGRect(x:0, y:0, width:newImageSize.width,height: newImageSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newImage!;
+    }
 }

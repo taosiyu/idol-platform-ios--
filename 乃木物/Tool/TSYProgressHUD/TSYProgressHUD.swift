@@ -80,20 +80,18 @@ class TSYProgressHUD: NSObject {
                 self.controlView.moveToFront()
                 self.showView.moveToFront()
             }
-            
         }
-        
     }
     
     func dissmissLoading(){
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.curveEaseOut, animations: {[unowned self] in
-            self.showView.transform = CGAffineTransform.init(scaleX: 0.001, y: 0.001)
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.curveEaseOut, animations: {[unowned self] in
+            self.showView.alpha = 0
         }) {[unowned self] (finish) in
             self.controlView.removeFromSuperview()
             self.loadingView.endAnimation()
             self.baseView.removeFromSuperview()
             self.showView.removeFromSuperview()
-            self.showView.transform = CGAffineTransform.identity
+            self.showView.alpha = 1
         }
     }
 

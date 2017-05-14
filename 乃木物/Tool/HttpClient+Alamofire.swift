@@ -63,6 +63,14 @@ class HttpClient_Alamofire: NSObject {
         return HttpClient_Alamofire.requestGET(urlStr: API.memberList.details, params: nil, success:success, failed: failed, error: errorClo)
     }
     
+    //MARK:个人所有博客
+    @discardableResult
+    static func memberBlogs(params:Dic,success: @escaping SuccessedClosure,failed:@escaping FailedClosure,errorClo:ErrorClosure)->Request{
+        return HttpClient_Alamofire.requestGET(urlStr: API.dataDetail.blogs, params: params, success:success, failed: failed, error: errorClo)
+    }
+    
+    
+    
     //Alamofire 相关的设置
     //MARK:get请求
     static func requestGET(urlStr:String,params:Dic,success:SuccessedClosure!,failed: FailedClosure!,error:ErrorClosure) -> Request{
