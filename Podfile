@@ -9,7 +9,9 @@ pod ‘SVProgressHUD’
 pod ‘MJRefresh’
 pod ‘SwiftyJSON’
 pod ‘ObjectMapper’
-pod ‘SDWebImage’
 pod ’YYWebImage‘
+
+pod ‘UMengUShare/UI’
+pod ‘UMengUShare/Social/QQ'
 
 end

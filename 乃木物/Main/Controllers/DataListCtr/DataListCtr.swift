@@ -70,6 +70,7 @@ class DataListCtr: BaseCtr {
         //下拉
         var dic = Eic()
         dic["page"] = self.dataListTableView.refreshCount as AnyObject?
+        print(self.dataListTableView.refreshCount)
         if !isFoot {
             HttpClient_Alamofire.dataList(params: dic, success: { (dataObjc) in
                 self.dataListTableView.endRefreshing()

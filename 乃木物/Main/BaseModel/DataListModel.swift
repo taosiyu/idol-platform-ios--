@@ -28,6 +28,26 @@ class DataListModel: BaseModel {
         }
     }//文章附图
     
+    //收藏用
+    var images = ""{
+        didSet{
+            let array = images.components(separatedBy: "#")
+            if array.count > 0{
+                var models = [DataListImagesModel]()
+                for str in array {
+                    if !str.isEmpty{
+                        let m = ModelFactory.new(type: DataListImagesModel.self)
+                        m.image = str
+                        models.append(m)
+                    }
+                }
+                if models.count > 0{
+                    self.withpic = models
+                }
+            }
+        }
+    }
+    
     var isThreeImage = false
     
     //详情
@@ -46,6 +66,37 @@ class DataListModel: BaseModel {
         withpic <- map["withpic"]
         timeStr = delivery.toDateString
         article <- map["article"]
+        images <- map["images"]
+        id <- map["detailId"]
+    }
+    
+    //MARK:获取插入语句
+    func getInsertSQL()->String{
+        var sql = "INSERT INTO \(SQLTableView) (timeStr,detailId,title,provider,summary,images)VALUES ("
+        sql += "\(timeStr),"
+        sql += "\(self.id),"
+        sql += "\(title),"
+        sql += "\(provider),"
+        sql += "\(summary),"
+        for image in withpic{
+            sql += "\(image.image)#"
+        }
+        return sql
+    }
+    
+    func getData()->[String:String]{
+        var dic = [String:String]()
+        dic["timeStr"] = timeStr
+        dic["detailId"] = self.id
+        dic["title"] = title
+        dic["provider"] = provider
+        dic["summary"] = summary
+        var images = ""
+        for image in withpic{
+            images += "\(image.image)#"
+        }
+        dic["images"] = images
+        return dic
     }
     
     func getWeb()->String{
@@ -55,6 +106,7 @@ class DataListModel: BaseModel {
         html+="</head>"
         html+=String.baseStyle
         html+="<body>"
+        html+="<div style=\"background-color:#d4237a;color:white;padding:2px\">"
         html+=self.title.html_strong
         html+=self.type.hasValue
         html+="<br>"
@@ -62,6 +114,7 @@ class DataListModel: BaseModel {
         html+=self.timeStr.html_float(type: .right)
         html+=HTML.clearFloat
         html+="<br>"
+        html+="</div>"
         html+="<hr />"
         html+=self.article
         html+="</body>"

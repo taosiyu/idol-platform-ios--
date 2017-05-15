@@ -20,12 +20,17 @@ class TitlesSelectTabbarCtr: UIViewController {
         return vc
     }()
     
+    var isSlide:Bool = false{
+        didSet{
+            self.mainScrollView.isScrollEnabled = isSlide
+        }
+    }
+    
     fileprivate var titlesTabbar:TitlesTabbar!
     
     fileprivate var controllers = ["DataListCtr","BlogListCtr","NewsListCtr","MagazineListCtr"]
     
     fileprivate var titles = ["全部","博客","新闻","杂志"]
-    
     
     convenience init(ctrs:[String],titles:[String]) {
         self.init()

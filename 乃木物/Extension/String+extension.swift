@@ -36,7 +36,10 @@ extension String {
     }
     
     var fixImgUrl: URL {
-        return URL.init(string: self)!
+        if let url = URL.init(string: self){
+            return url
+        }
+        return URL.init(string: "https://taosiyu.github.io")!
     }
     
     //MARK:获取标准的web
@@ -111,10 +114,44 @@ extension String {
         return html
     }
     
-    //Index
+    //MARK:沙盒
+    func appendCache()->String{
+        if let filePath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last {
+            let path = (filePath as NSString).appendingPathComponent(self)
+            return path as String
+        }
+        return ""
+    }
+    
+    func appendTemp()->String{
+        let filePath = NSTemporaryDirectory()
+        let path = (filePath as NSString).appendingPathComponent(self)
+        return path as String
+    }
+    
+    func appendDocument()->String{
+        if let filePath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last {
+            let path = (filePath as NSString).appendingPathComponent(self)
+            return path as String
+        }
+        return ""
+    }
 
 }
 
+
+
+//MARK:Code相关
+extension String{
+    
+    func codeUTF8()->[CChar]{
+        if self=="" || self==" " {
+            return [CChar]()
+        }
+        return self.cString(using: String.Encoding.utf8)!
+    }
+    
+}
 
 
 

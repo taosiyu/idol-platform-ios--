@@ -74,6 +74,17 @@ class WKWebViewController: UIViewController {
         
         myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: &myContext)
         
+        setRightItem()
+    }
+    
+    //MARK:设置右边的按钮
+    private func setRightItem(){
+        let bar = UIBarButtonItem.init(image: UIImage.init(named: "more"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(saveBlog))
+        self.navigationItem.rightBarButtonItem = bar
+    }
+    
+    @objc private func saveBlog(){
+        _ = RainSQLiteQuery.save(tableName: SQLTableView, detailId: self.model.id, data: self.model.getData())
     }
     
     private func loadUrl(){

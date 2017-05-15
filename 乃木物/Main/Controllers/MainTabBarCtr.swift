@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYWebImage
 
 private let cellID = "sideViewCellID"
 private let headCellID = "sideViewHeadID"
@@ -25,12 +26,12 @@ class MainTabBarCtr: UITabBarController {
         super.viewDidLoad()
         
         self.tabBar.backgroundImage = UIImage.imageWithColor(color: UIColor.init(white: 1, alpha: 0.4))
-        
         self.delegate = self
         self.setupChildController()
         self.setSlideView()
     }
     
+    //MARK:侧滑栏的初始化
     private func setSlideView(){
         self.sideView = SlideView.init(superView: self.view)
         self.sideView .backgroundColor = UIColor.white
@@ -41,6 +42,11 @@ class MainTabBarCtr: UITabBarController {
         self.sideView.dataSource = self
         let vc = headView.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 160))
         self.sideView.tableHeaderView = vc
+        self.sideView.slideScrollClo = {[unowned self] (isSlide) in
+            if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
+                ctr.isSlide = isSlide
+            }
+        }
         self.view.addSubview(sideView)
     }
     
@@ -158,7 +164,6 @@ extension MainTabBarCtr:UITableViewDelegate,UITableViewDataSource{
         let vc = MyHeadView.init(reuseIdentifier: headCellID)
         vc.frame = CGRect(x: 0, y: 0, width: width, height: 45)
         vc.setTitle(str: self.headTitles[section])
-        print(self.headTitles[section])
         return vc
     }
     
@@ -172,6 +177,46 @@ extension MainTabBarCtr:UITableViewDelegate,UITableViewDataSource{
             cell.setCellBy(dic: dic)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            switch indexPath.row {
+            case 0:
+                self.animationBegin()
+                let vc = SaveCtr()
+                if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
+                    ctr.navigationController?.pushViewController(vc, animated: true)
+                }
+                break
+            case 1:
+                if let cache = YYWebImageManager.shared().cache {
+                    cache.memoryCache.removeAllObjects()
+                    cache.diskCache.removeAllObjects(progressBlock: { (count1, count2) in
+                        let pto = Float(count1)/Float(count2)
+                        HitMessage.showProgress(progress: pto, status: "清除中")
+                    }, end: { (isFinish) in
+                        HitMessage.showSuccessWithMessage(message: "清除成功")
+                    })
+                }
+                break
+            default:
+                HitMessage.showErrorWithMessage(message: "正在开发中")
+                break
+            }
+        }else{
+            switch indexPath.row {
+            case 0:
+                break
+            default:
+                self.animationBegin()
+                let vc = AboutCtr()
+                if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
+                    ctr.navigationController?.pushViewController(vc, animated: true)
+                }
+                break
+            }
+        }
     }
 }
 

@@ -73,6 +73,11 @@
 		7DD4A5D71EC00A3400B4D0CF /* BlogListCtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4A5D61EC00A3400B4D0CF /* BlogListCtr.swift */; };
 		7DD4A5D91EC00A9400B4D0CF /* NewsListCtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4A5D81EC00A9400B4D0CF /* NewsListCtr.swift */; };
 		7DD4A5DB1EC00AC500B4D0CF /* MagazineListCtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD4A5DA1EC00AC500B4D0CF /* MagazineListCtr.swift */; };
+		7DE61B9A1EC9787800DAE296 /* UMSocialTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE61B991EC9787800DAE296 /* UMSocialTool.swift */; };
+		7DE61B9D1EC97CD000DAE296 /* SaveCtr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE61B9C1EC97CD000DAE296 /* SaveCtr.swift */; };
+		7DE61B9F1EC991F000DAE296 /* RainSQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE61B9E1EC991F000DAE296 /* RainSQLiteDB.swift */; };
+		7DE61BA11EC9930E00DAE296 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DE61BA01EC9930E00DAE296 /* libsqlite3.0.tbd */; };
+		7DE61BA31EC9A1FF00DAE296 /* RainSQLiteQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE61BA21EC9A1FF00DAE296 /* RainSQLiteQuery.swift */; };
 		E0599753020DD5DA79BB7009 /* Pods____.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2110D7C771C8DA3939348EE /* Pods____.framework */; };
 /* End PBXBuildFile section */
 
@@ -167,6 +172,12 @@
 		7DD4A5D61EC00A3400B4D0CF /* BlogListCtr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogListCtr.swift; sourceTree = "<group>"; };
 		7DD4A5D81EC00A9400B4D0CF /* NewsListCtr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListCtr.swift; sourceTree = "<group>"; };
 		7DD4A5DA1EC00AC500B4D0CF /* MagazineListCtr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineListCtr.swift; sourceTree = "<group>"; };
+		7DE61B981EC9750400DAE296 /* Swift2OCBridgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swift2OCBridgr.h; sourceTree = "<group>"; };
+		7DE61B991EC9787800DAE296 /* UMSocialTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMSocialTool.swift; sourceTree = "<group>"; };
+		7DE61B9C1EC97CD000DAE296 /* SaveCtr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCtr.swift; sourceTree = "<group>"; };
+		7DE61B9E1EC991F000DAE296 /* RainSQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainSQLiteDB.swift; sourceTree = "<group>"; };
+		7DE61BA01EC9930E00DAE296 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		7DE61BA21EC9A1FF00DAE296 /* RainSQLiteQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainSQLiteQuery.swift; sourceTree = "<group>"; };
 		A4A2647FA992D823354E9402 /* Pods-乃木物.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-乃木物.debug.xcconfig"; path = "Pods/Target Support Files/Pods-乃木物/Pods-乃木物.debug.xcconfig"; sourceTree = "<group>"; };
 		D2110D7C771C8DA3939348EE /* Pods____.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods____.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -176,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE61BA11EC9930E00DAE296 /* libsqlite3.0.tbd in Frameworks */,
 				E0599753020DD5DA79BB7009 /* Pods____.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +212,7 @@
 		7C69AC58CFCA692BCE351304 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7DE61BA01EC9930E00DAE296 /* libsqlite3.0.tbd */,
 				D2110D7C771C8DA3939348EE /* Pods____.framework */,
 			);
 			name = Frameworks;
@@ -240,6 +253,7 @@
 				7D12F8FC1EBC146B0044F460 /* Assets.xcassets */,
 				7D12F8FE1EBC146B0044F460 /* LaunchScreen.storyboard */,
 				7D12F9011EBC146B0044F460 /* Info.plist */,
+				7DE61B981EC9750400DAE296 /* Swift2OCBridgr.h */,
 			);
 			path = "乃木物";
 			sourceTree = "<group>";
@@ -265,6 +279,7 @@
 		7D12F9231EBC14790044F460 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				7DE61B9B1EC97CAD00DAE296 /* SaveCtr */,
 				7DD4A5CA1EBF45F000B4D0CF /* CtrCategory */,
 				7D6E61FA1EBC9B3D00F8A071 /* Controls */,
 				7D12F9241EBC15A60044F460 /* Views */,
@@ -310,6 +325,9 @@
 				7D12F9291EBC16230044F460 /* Define+CloSureType.swift */,
 				7D12F9271EBC160E0044F460 /* HeighLevelFunc.swift */,
 				7D884A5D1EC2A8ED005902DE /* ThreadTool.swift */,
+				7DE61B991EC9787800DAE296 /* UMSocialTool.swift */,
+				7DE61B9E1EC991F000DAE296 /* RainSQLiteDB.swift */,
+				7DE61BA21EC9A1FF00DAE296 /* RainSQLiteQuery.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -475,6 +493,14 @@
 				7DD4A5CD1EBF4B6900B4D0CF /* TitlesTabbar.swift */,
 			);
 			path = CtrCategory;
+			sourceTree = "<group>";
+		};
+		7DE61B9B1EC97CAD00DAE296 /* SaveCtr */ = {
+			isa = PBXGroup;
+			children = (
+				7DE61B9C1EC97CD000DAE296 /* SaveCtr.swift */,
+			);
+			path = SaveCtr;
 			sourceTree = "<group>";
 		};
 		90A091FDB6304F5EBC87DF66 /* Pods */ = {
@@ -706,6 +732,7 @@
 				7D884A4C1EC05D31005902DE /* RefreshView.swift in Sources */,
 				7DB840541EC31482003D2914 /* MembersCtrCell.swift in Sources */,
 				7D60D1871EC549F9008863D8 /* HeadChangeTableView.swift in Sources */,
+				7DE61B9A1EC9787800DAE296 /* UMSocialTool.swift in Sources */,
 				7D884A531EC154E7005902DE /* DataListOneImageCell.swift in Sources */,
 				7D12F9461EBC61410044F460 /* MainTabBarCtr.swift in Sources */,
 				7DD4A5D91EC00A9400B4D0CF /* NewsListCtr.swift in Sources */,
@@ -716,8 +743,10 @@
 				7DD4A5D71EC00A3400B4D0CF /* BlogListCtr.swift in Sources */,
 				7DD4A5CE1EBF4B6900B4D0CF /* TitlesTabbar.swift in Sources */,
 				7D54D70F1EBCA1A4008A7B07 /* UIView+extension.swift in Sources */,
+				7DE61BA31EC9A1FF00DAE296 /* RainSQLiteQuery.swift in Sources */,
 				7DB840481EC2F9E0003D2914 /* LauchCtr.swift in Sources */,
 				7D12F9281EBC160E0044F460 /* HeighLevelFunc.swift in Sources */,
+				7DE61B9F1EC991F000DAE296 /* RainSQLiteDB.swift in Sources */,
 				7D12F8F81EBC146A0044F460 /* ViewController.swift in Sources */,
 				7DD4A5D21EBF4FDA00B4D0CF /* Number+extension.swift in Sources */,
 				7D884A581EC1B5DE005902DE /* TSYProgressHUD.swift in Sources */,
@@ -731,6 +760,7 @@
 				7DB840521EC3112F003D2914 /* CollectionViewDataSource.swift in Sources */,
 				7D54D7131EBCCC2E008A7B07 /* Bundle+EXtensions.swift in Sources */,
 				7D12F9351EBC1B460044F460 /* MainBaseModel.swift in Sources */,
+				7DE61B9D1EC97CD000DAE296 /* SaveCtr.swift in Sources */,
 				7D12F9411EBC5CB60044F460 /* String+extension.swift in Sources */,
 				7DD4A5C91EBF2F6700B4D0CF /* BaseCtr.swift in Sources */,
 			);
@@ -888,6 +918,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tsy.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/乃木物/Swift2OCBridgr.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -902,6 +933,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tsy.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/乃木物/Swift2OCBridgr.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

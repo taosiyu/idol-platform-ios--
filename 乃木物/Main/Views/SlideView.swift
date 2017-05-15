@@ -19,6 +19,8 @@ class SlideView: UITableView {
     
     private var superView:UIView = UIView.init()
     
+    var slideScrollClo:((Bool)->())?
+    
     private var coverView:UIView = {
         let vc = UIView()
         vc.backgroundColor = UIColor.black
@@ -43,6 +45,10 @@ class SlideView: UITableView {
         }
         self.superView = superView
         self.addPanGestureRecognizer()
+        self.toFront()
+    }
+    
+    func toFront(){
         self.coverView.moveToFront()
         self.moveToFront()
     }
@@ -62,37 +68,95 @@ class SlideView: UITableView {
     }
     
     private var isFromLeft = false
+    private var isFromRight = false
     @objc private func panGesture(pan:UIPanGestureRecognizer){
-        if isFromLeft {return}
+        if let ctr = MainApp.window?.rootViewController as? MainTabBarCtr{
+           if ctr.childViewControllers[0].childViewControllers.count > 1{
+                return
+           }else if ctr.childViewControllers[1].childViewControllers.count > 1 {
+                return
+           }else if ctr.childViewControllers[2].childViewControllers.count > 1 {
+                return
+            }
+        }
         let status = pan.state
         let translation = pan.translation(in: self.superView)
+        let startXPoint = pan.location(in: self.superView).x
         switch status {
         case .began:
-            let startXPoint = pan.location(in: self.superView).x
-            if startXPoint < 20{
+            if startXPoint < 30 && !isOut{
                 isFromLeft = true
+            }else if isOut && startXPoint > width{
+                isFromRight = true
             }
             break
         case .changed:
             if isFromLeft{
-                print("translation.x=\(translation.x)")
+                self.panDistance(distance: translation.x)
+            }else if isFromRight{
+                self.panDistanceFromRight(distance: translation.x)
             }
             break
-        case .ended:
+        case .ended,.cancelled:
+            if isFromLeft {
+                isFromLeft = false
+                self.panEnd(distance: translation.x)
+            }else if isFromRight {
+                isFromRight = false
+                self.panEnd(distance: translation.x)
+            }
             break
         default:
             break
         }
     }
     
+    //MARK:滑动时候的动画    Left->Rigth
+    private func panDistance(distance:CGFloat){
+        if distance >= width{return}
+        self.toFront()
+        self.coverView.isHidden = false
+        self.transform = CGAffineTransform.init(translationX: distance, y: 0)
+        let alphaFloat = (distance/width)*restAlpha
+        self.coverView.alpha = alphaFloat
+        if let clo = self.slideScrollClo{
+            clo(false)
+        }
+    }
+    
+    //MARK:滑动时候的动画    Right->Left
+    private func panDistanceFromRight(distance:CGFloat){
+        if self.transform.tx <= 0{return}
+        let disW = width-abs(distance)
+        self.transform = CGAffineTransform(translationX: disW, y: 0)
+        let alphaFloat = (disW/width)*restAlpha
+        self.coverView.alpha = alphaFloat
+    }
+    
+    //MARK:松手时的动画
+    private func panEnd(distance:CGFloat){
+        if !self.canAnimation {return}
+        let w = width*0.5
+        self.canAnimation = false
+        if distance > w || (width-abs(distance)) > w{
+            self.startAnimation()
+        }else{
+            self.endAnimation()
+        }
+        if let clo = self.slideScrollClo{
+            clo(true)
+        }
+    }
     
     //MARK:开始动画
     private func startAnimation(){
+        self.toFront()
         self.coverView.isHidden = false
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {[unowned self] in
             self.coverView.alpha = self.restAlpha
             self.transform = CGAffineTransform.init(translationX: width, y: 0)
         }) { (finish) in
+            self.isOut = true
             self.canAnimation = true
         }
     }
@@ -111,12 +175,16 @@ class SlideView: UITableView {
     
     //MARK:结束动画
     private func endAnimation(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {[unowned self] in
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.curveEaseOut, animations: {[unowned self] in
             self.coverView.alpha = 0
             self.transform = CGAffineTransform.identity
         }) { (finish) in
+            self.isOut = false
             self.coverView.isHidden = true
             self.canAnimation = true
+        }
+        if let clo = self.slideScrollClo{
+            clo(true)
         }
     }
 

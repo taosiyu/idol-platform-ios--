@@ -33,6 +33,16 @@ let AppVersion       = "1.0"
 let SildeTitle       = "APP开发群 480242179"
 let SildeContent     = "https://github.com/Lemonade56/NogiZaka46"
 
+let AppApply         = ""
+
+//友盟
+let UMENGAPPKEY      = ""
+let QQAPIKEY         = ""
+
+//sql
+var SQLTableView     = "saveTable"
+
+
 //颜色
 func UIColorFromRGB(rgbValue: Int) -> UIColor {
     return UIColor(

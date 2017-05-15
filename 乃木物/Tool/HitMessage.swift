@@ -13,6 +13,10 @@ class HitMessage: NSObject {
     static func resetDismissDuration() {
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
     }
+    
+    static func showProgress(progress: Float,status: String){
+        SVProgressHUD.showProgress(progress, status: status)
+    }
 
     static func showLoading() {
         SVProgressHUD.showInfo(withStatus: "请稍候...")

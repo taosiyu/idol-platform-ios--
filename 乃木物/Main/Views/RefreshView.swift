@@ -26,7 +26,6 @@ class RefreshView: UITableView {
             }
         }
     }
-    
 
     convenience init() {
         self.init(frame:CGRect())
@@ -72,6 +71,7 @@ class RefreshView: UITableView {
             }else{
                 self.isLoading = true
             }
+            self.refreshCount = 1
             self.footerEndRefreshing()
             self.footResetNoMoreData()
             closure()

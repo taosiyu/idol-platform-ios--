@@ -18,7 +18,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //进入主页面
         self.mainTabBarView()
         
+        HitMessage.resetDismissDuration()
+        
+        //友盟
+        self.umengSetting()
+        
+        //SQLite
+        self.setSQlite()
+        
         return true
+    }
+    
+    //MARK:创建本地数据库
+    private func setSQlite(){
+        RainSQLiteDB.shared.createTable(sqlParam: "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,detailId VARCHAR(40) NOT NULL,timeStr VARCHAR(20), title TEXT,provider TEXT,summary TEXT, images TEXT", tableName:SQLTableView)
+    }
+    
+    //MARK:友盟设置
+    private func umengSetting(){
+        //打开log
+        UMSocialManager.default().openLog(true)
+        
+        UMSocialManager.default().umSocialAppkey = UMENGAPPKEY
+        
+        //QQ分享
+        UMSocialManager.default().setPlaform(UMSocialPlatformType.QQ, appKey: QQAPIKEY, appSecret: nil, redirectURL: "http://mobile.umeng.com/social")
     }
     
     private func mainTabBarView(){
@@ -50,6 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let result = UMSocialManager.default().handleOpen(url, options: options)
+        return result
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        let result = UMSocialManager.default().handleOpen(url)
+        return result
     }
 
 
