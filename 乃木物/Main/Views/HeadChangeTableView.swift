@@ -43,7 +43,7 @@ class HeadChangeTableView: UITableView {
         if context == &myContext {
             if let newValue = change?[NSKeyValueChangeKey.newKey] {
                 if let yy = newValue as? CGPoint{
-                    print("yyy=\(yy)")
+                    
                 }
             }
         } else {

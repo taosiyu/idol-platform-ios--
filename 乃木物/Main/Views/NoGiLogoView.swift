@@ -10,21 +10,29 @@ import UIKit
 import SnapKit
 
 class NoGiLogoView: UIView {
-
-    private var logo46:UILabel = {
-        let label = UILabel()
-        label.text = "46"
-        label.textAlignment = NSTextAlignment.center
-        label.backgroundColor = UIColor.clear
-        label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        return label
+    
+    private var logoLeft:UIButton = {
+        let btn = UIButton()
+        btn.setTitle("4", for: UIControlState.normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+        btn.setTitleColor(UIColor.white, for: UIControlState.disabled)
+        btn.setTitleColor(UIColor.mainColor, for: UIControlState.normal)
+        btn.tag = 4
+        return btn
     }()
     
-    var clickBlock:VoidClosure?
+    private var logoRight:UIButton = {
+        let btn = UIButton()
+        btn.setTitle("6", for: UIControlState.normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+        btn.setTitleColor(UIColor.mainColor, for: UIControlState.normal)
+        btn.setTitleColor(UIColor.white, for: UIControlState.disabled)
+        btn.tag = 6
+        return btn
+    }()
     
-    private var isChange = true
-    
+    var clickBlock:((Int)->())?
+
     convenience init() {
         self.init(frame: CGRect())
     }
@@ -32,7 +40,7 @@ class NoGiLogoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setipView()
-        self.backgroundColor = UIColor.mainColor
+        self.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,28 +48,54 @@ class NoGiLogoView: UIView {
     }
     
     private func setipView(){
-        self.addSubview(self.logo46)
-        self.logo46.snp.makeConstraints { (make) in
-            make.left.right.top.bottom.equalTo(self)
-            
+        self.addSubview(self.logoRight)
+        self.addSubview(self.logoLeft)
+        self.setRoundedCornersBy(corner: [.topRight,.bottomRight])
+        
+        self.logoLeft.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left)
+            make.top.equalTo(self.snp.top)
+            make.right.equalTo(self.snp.right)
+            make.height.equalTo(55)
         }
-        let ges = UITapGestureRecognizer()
-        addGestureRecognizer(ges)
-        ges.addTarget(self, action: #selector(beginAnimation))
+        
+        self.logoRight.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left)
+            make.bottom.equalTo(self.snp.bottom)
+            make.right.equalTo(self.snp.right)
+            make.height.equalTo(55)
+        }
+        
+        
+        self.logoLeft.addTarget(self, action: #selector(buttonClick(btn:)), for: UIControlEvents.touchDown)
+        self.logoRight.addTarget(self, action: #selector(buttonClick(btn:)), for: UIControlEvents.touchDown)
+    
+        setBaseButton()
     }
     
-    func beginAnimation(){
-        if isChange{
-            isChange = false
-            if let clo = self.clickBlock {
-                clo()
-            }
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.curveEaseInOut, animations: {[unowned self] in
-                self.logo46.transform = CGAffineTransform.init(rotationAngle: CGFloat(M_PI_4))
-            }) { (finish) in
-                self.isChange = true
-                self.logo46.transform = CGAffineTransform.identity
-            }
+    private func setBaseButton(){
+        self.logoLeft.backgroundColor = UIColor.mainColor
+        self.logoRight.backgroundColor = UIColor.white
+        self.logoLeft.isEnabled = false
+        self.logoRight.isEnabled = true
+    
+    }
+    
+    func buttonClick(btn:UIButton){
+        let tag = btn.tag
+        if tag == 4{
+            self.logoLeft.backgroundColor = UIColor.mainColor
+            self.logoRight.backgroundColor = UIColor.white
+            self.logoLeft.isEnabled = false
+            self.logoRight.isEnabled = true
+        }else{
+            self.logoLeft.backgroundColor = UIColor.white
+            self.logoRight.backgroundColor = UIColor.mainColor
+            self.logoLeft.isEnabled = true
+            self.logoRight.isEnabled = false
+        }
+        if let clo = self.clickBlock {
+            clo(tag)
         }
     }
 

@@ -17,6 +17,8 @@
 @property (nonatomic, copy) NSDate    *expiration;
 @property (nonatomic, copy) NSString  *accessToken;
 
+@property (nonatomic, copy) NSString  *unionId;
+
 @property (nonatomic, assign) UMSocialPlatformType  platformType;
 /**
  * 第三方原始数据

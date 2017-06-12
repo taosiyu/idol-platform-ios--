@@ -58,6 +58,11 @@ class DataListCell: UITableViewCell {
         label.textColor = UIColor.lightGray
         return label
     }()
+    
+    private var backView:UIView = {
+        let vc = UIView()
+        return vc
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -67,13 +72,16 @@ class DataListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         
-        self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.timeLabel)
-        self.contentView.addSubview(self.zimuLabel)
-        self.contentView.addSubview(self.contentLabel)
-        self.contentView.addSubview(self.imageOne)
-        self.contentView.addSubview(self.imageTwo)
-        self.contentView.addSubview(self.imageThree)
+        backView.backgroundColor = self.contentView.backgroundColor
+        
+        self.contentView.addSubview(self.backView)
+        self.backView.addSubview(self.titleLabel)
+        self.backView.addSubview(self.timeLabel)
+        self.backView.addSubview(self.zimuLabel)
+        self.backView.addSubview(self.contentLabel)
+        self.backView.addSubview(self.imageOne)
+        self.backView.addSubview(self.imageTwo)
+        self.backView.addSubview(self.imageThree)
         
         self.cellinit()
     }
@@ -84,9 +92,17 @@ class DataListCell: UITableViewCell {
     
     private func cellinit(){
         
-        let conV = self.contentView
+        let conV = self.backView
         
-        let width = (ScreenWidth - 40)/3
+        self.backView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.contentView.snp.left).offset(8)
+            make.top.equalTo(self.contentView.snp.top).offset(2)
+            make.right.equalTo(self.contentView.snp.right).offset(-8)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-2)
+        }
+        self.backView.addShadowViewWithOffset(offset: 1.5)
+        
+        let width = (ScreenWidth - 40-16)/3
         
         self.titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(conV.snp.top).offset(10)

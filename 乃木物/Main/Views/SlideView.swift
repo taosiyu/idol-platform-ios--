@@ -99,11 +99,11 @@ class SlideView: UITableView {
             break
         case .ended,.cancelled:
             if isFromLeft {
+                self.panEnd(distance: translation.x)
                 isFromLeft = false
-                self.panEnd(distance: translation.x)
             }else if isFromRight {
-                isFromRight = false
                 self.panEnd(distance: translation.x)
+                isFromRight = false
             }
             break
         default:
@@ -138,7 +138,10 @@ class SlideView: UITableView {
         if !self.canAnimation {return}
         let w = width*0.5
         self.canAnimation = false
-        if distance > w || (width-abs(distance)) > w{
+        print(distance)
+        print(width-abs(distance))
+        print(w)
+        if (isFromLeft&&distance > w) || (isFromRight&&(width-abs(distance)) > w){
             self.startAnimation()
         }else{
             self.endAnimation()
@@ -175,7 +178,7 @@ class SlideView: UITableView {
     
     //MARK:结束动画
     private func endAnimation(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.curveEaseOut, animations: {[unowned self] in
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.9, options: UIViewAnimationOptions.curveEaseIn, animations: {[unowned self] in
             self.coverView.alpha = 0
             self.transform = CGAffineTransform.identity
         }) { (finish) in

@@ -13,9 +13,9 @@ class TSYCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override func prepare() {
         super.prepare()
         
-        self.minimumLineSpacing = 2
-        self.minimumInteritemSpacing = 2
-        self.itemSize = CGSize(width: ScreenWidth-20, height: ScreenHeight-64-49-8)
+        self.minimumLineSpacing = 0
+        self.minimumInteritemSpacing = 0
+        self.itemSize = CGSize(width: ScreenWidth-16-35, height: ScreenHeight-64-49-8)
         self.scrollDirection = .horizontal
     }
     

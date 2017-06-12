@@ -34,14 +34,7 @@ class MembersCtr: BaseCtr{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.rgbColor(rgbValue: 0xdddddd)
-//        
-//        let vc = NoGiLogoView.init()
-//        vc.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        vc.layer.cornerRadius = 10
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: vc)
-//        vc.clickBlock = {[unowned self] in
-//            self.changeShowType()
-//        }
+        self.setLeftBarItem()
     }
     
     override func setupView() {
@@ -53,7 +46,7 @@ class MembersCtr: BaseCtr{
             make.right.equalTo(self.view.snp.right).offset(-8)
             make.bottom.equalTo(self.view.snp.bottom).offset(-8-49)
         }
-        self.mainCollectionView.addShadowViewWithOffset(offset: 1.2)
+//        self.mainCollectionView.addShadowViewWithOffset(offset: 1.2)
         
         self.dataSource = CollectionViewDataSource(collectionView: self.mainCollectionView, cellIdentier: cellID, delegate: self)
         
@@ -119,8 +112,12 @@ class MembersCtr: BaseCtr{
     private func refreshSourceData(){
         if isShowAll {
             self.dataSource.setObjects(objs: self.sourceAllData)
+            self.mainCollectionView.layoutSubviews()
+            self.mainCollectionView.reloadData()
         }else{
             self.dataSource.setObjects(objs: self.sourceData)
+            self.mainCollectionView.layoutSubviews()
+            self.mainCollectionView.reloadData()
         }
     }
     

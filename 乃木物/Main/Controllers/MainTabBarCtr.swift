@@ -21,7 +21,7 @@ class MainTabBarCtr: UITabBarController {
     
     //MARK:侧边栏
     private var sideView:SlideView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +29,8 @@ class MainTabBarCtr: UITabBarController {
         self.delegate = self
         self.setupChildController()
         self.setSlideView()
+        
+        self.selectedIndex = 1
     }
     
     //MARK:侧滑栏的初始化
@@ -43,7 +45,8 @@ class MainTabBarCtr: UITabBarController {
         let vc = headView.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 160))
         self.sideView.tableHeaderView = vc
         self.sideView.slideScrollClo = {[unowned self] (isSlide) in
-            if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
+            print(self.childViewControllers[1].childViewControllers)
+            if let ctr = (self.childViewControllers[1] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
                 ctr.isSlide = isSlide
             }
         }
@@ -65,7 +68,7 @@ class MainTabBarCtr: UITabBarController {
     
     func setupChildController(){
         
-        let array = [["clsName":"TitlesSelectTabbarCtr","title":"乃木物","imageName":"home_Icon"],["clsName":"MembersCtr","title":"官博","imageName":"blog_Icon"],["clsName":"MyCtr","title":"我的","imageName":"my_Icon"]]
+        let array = [["clsName":"MembersCtr","title":"官博","imageName":"blog_Icon"],["clsName":"TitlesSelectTabbarCtr","title":"乃木物","imageName":"home_Icon"],["clsName":"MyCtr","title":"我的","imageName":"my_Icon"]]
         
         var arrayVC = [UIViewController]()
         for dict in array{
@@ -185,8 +188,8 @@ extension MainTabBarCtr:UITableViewDelegate,UITableViewDataSource{
             case 0:
                 self.animationBegin()
                 let vc = SaveCtr()
-                if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
-                    ctr.navigationController?.pushViewController(vc, animated: true)
+                if let ctr = (self.childViewControllers[self.selectedIndex] as? HitBaseNavCtr){
+                    ctr.pushViewController(vc, animated: true)
                 }
                 break
             case 1:
@@ -211,8 +214,8 @@ extension MainTabBarCtr:UITableViewDelegate,UITableViewDataSource{
             default:
                 self.animationBegin()
                 let vc = AboutCtr()
-                if let ctr = (self.childViewControllers[0] as? HitBaseNavCtr)?.childViewControllers[0] as? TitlesSelectTabbarCtr{
-                    ctr.navigationController?.pushViewController(vc, animated: true)
+                if let ctr = (self.childViewControllers[self.selectedIndex] as? HitBaseNavCtr){
+                    ctr.pushViewController(vc, animated: true)
                 }
                 break
             }

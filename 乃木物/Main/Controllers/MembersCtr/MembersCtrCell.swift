@@ -13,7 +13,12 @@ class MembersCtrCell: UICollectionViewCell {
     
     fileprivate var avator:UIImageView = {
         let vc = UIImageView()
-//        vc.contentMode = .scaleAspectFill
+        vc.contentMode = .scaleAspectFit
+        return vc
+    }()
+    
+    fileprivate var back:UIView = {
+        let vc = UIView()
         return vc
     }()
     
@@ -51,11 +56,15 @@ class MembersCtrCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.backgroundColor = UIColor.white
-        self.contentView.addSubview(self.avator)
-        self.contentView.addSubview(self.nameLabel)
-        self.contentView.addSubview(self.japanLabel)
-        self.contentView.addSubview(self.birthLabel)
-        self.contentView.addSubview(self.statusLabel)
+        self.back.backgroundColor = UIColor.white
+        self.contentView.addSubview(self.back)
+        self.back.addShadowViewWithOffset(offset: 1.5)
+        
+        self.back.addSubview(self.avator)
+        self.back.addSubview(self.nameLabel)
+        self.back.addSubview(self.japanLabel)
+        self.back.addSubview(self.birthLabel)
+        self.back.addSubview(self.statusLabel)
         self.nameLabel.backgroundColor = UIColor.white
         self.japanLabel.backgroundColor = UIColor.white
         self.birthLabel.backgroundColor = UIColor.white
@@ -68,7 +77,7 @@ class MembersCtrCell: UICollectionViewCell {
     }
     
     func setModel(model:MenberModel){
-        self.avator.hit_setImageWithMemberString(string: model.portrait)
+        self.avator.hit_normalImage(string: model.portrait)
         self.nameLabel.text = model.name
         self.japanLabel.isHidden = true
         self.birthLabel.isHidden = true
@@ -76,7 +85,7 @@ class MembersCtrCell: UICollectionViewCell {
     }
     
     func setModelShowAll(model:MenberModel){
-        self.avator.hit_setImageWithMemberString(string: model.portrait)
+        self.avator.hit_normalImage(string: model.portrait)
         self.nameLabel.text = model.name
         self.japanLabel.text = model.rome
         self.birthLabel.text = model.birthdate
@@ -87,8 +96,14 @@ class MembersCtrCell: UICollectionViewCell {
     }
     
     private func setupView(){
-        let conV = self.contentView
-        let width = self.contentView.bounds.width - 4
+        
+        self.back.snp.makeConstraints { (make) in
+            make.top.left.equalTo(self.contentView).offset(2)
+            make.bottom.right.equalTo(self.contentView).offset(-2)
+        }
+        
+        let conV = self.back
+        let width = self.contentView.bounds.width - 4 - 4
         var theV:UIView!
         self.avator.snp.makeConstraints { (make) in
             make.top.equalTo(conV.snp.top).offset(2)
@@ -102,6 +117,7 @@ class MembersCtrCell: UICollectionViewCell {
             make.top.equalTo(theV.snp.bottom).offset(2)
             make.left.equalTo(conV.snp.left).offset(2)
             make.right.equalTo(conV.snp.right).offset(-2)
+            make.bottom.lessThanOrEqualTo(conV.snp.bottom).offset(-2)
         }
         theV = self.nameLabel
 
@@ -109,7 +125,6 @@ class MembersCtrCell: UICollectionViewCell {
             make.top.equalTo(theV.snp.bottom).offset(2)
             make.left.equalTo(conV.snp.left).offset(2)
             make.right.equalTo(conV.snp.right).offset(-2)
-//            make.bottom.equalTo(conV.snp.bottom).offset(-2)
         }
         theV = self.japanLabel
         

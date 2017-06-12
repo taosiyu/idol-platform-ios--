@@ -45,6 +45,11 @@ class DataListOneImageCell: UITableViewCell {
         return label
     }()
     
+    private var backView:UIView = {
+        let vc = UIView()
+        return vc
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -52,12 +57,15 @@ class DataListOneImageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        backView.backgroundColor = self.contentView.backgroundColor
+        
+        self.contentView.addSubview(self.backView)
         self.contentView.backgroundColor = UIColor.white
-        self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.contentLabel)
-        self.contentView.addSubview(self.timeLabel)
-        self.contentView.addSubview(self.zimuLabel)
-        self.contentView.addSubview(self.imageOne)
+        self.backView.addSubview(self.titleLabel)
+        self.backView.addSubview(self.contentLabel)
+        self.backView.addSubview(self.timeLabel)
+        self.backView.addSubview(self.zimuLabel)
+        self.backView.addSubview(self.imageOne)
         self.titleLabel.backgroundColor = UIColor.white
         self.contentLabel.backgroundColor = UIColor.white
         self.timeLabel.backgroundColor = UIColor.white
@@ -73,9 +81,17 @@ class DataListOneImageCell: UITableViewCell {
     
     private func cellinit(){
         
-        let conV = self.contentView
+        let conV = self.backView
         
-        let width = (ScreenWidth - 40)/3
+        self.backView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.contentView.snp.left).offset(8)
+            make.top.equalTo(self.contentView.snp.top).offset(2)
+            make.right.equalTo(self.contentView.snp.right).offset(-8)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-2)
+        }
+        self.backView.addShadowViewWithOffset(offset: 1.5)
+        
+        let width = (ScreenWidth - 40 - 16)/3
         
         self.imageOne.snp.makeConstraints { (make) in
             make.top.equalTo(conV.snp.top).offset(10)
@@ -83,11 +99,11 @@ class DataListOneImageCell: UITableViewCell {
             make.right.equalTo(conV.snp.right).offset(-10)
         }
         
-        self.titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(conV.snp.top).offset(10)
-            make.left.equalTo(conV.snp.left).offset(10)
-            make.right.equalTo(self.imageOne.snp.left).offset(-10)
-        }
+//        self.titleLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(conV.snp.top).offset(10)
+//            make.left.equalTo(conV.snp.left).offset(10)
+//            make.right.equalTo(self.imageOne.snp.left).offset(-10)
+//        }
         
         self.contentLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(8)
@@ -95,12 +111,12 @@ class DataListOneImageCell: UITableViewCell {
             make.right.equalTo(self.titleLabel.snp.right)
         }
         
-        self.timeLabel.snp.makeConstraints { (make) in
-            make.top.greaterThanOrEqualTo(self.imageOne.snp.bottom).offset(8)
-            make.top.greaterThanOrEqualTo(self.contentLabel.snp.bottom).offset(8)
-            make.left.equalTo(conV.snp.left).offset(8)
-            make.bottom.equalTo(conV.snp.bottom).offset(-8)
-        }
+//        self.timeLabel.snp.makeConstraints { (make) in
+//            make.top.greaterThanOrEqualTo(self.imageOne.snp.bottom).offset(8)
+//            make.top.greaterThanOrEqualTo(self.contentLabel.snp.bottom).offset(8)
+//            make.left.equalTo(conV.snp.left).offset(8)
+//            make.bottom.equalTo(conV.snp.bottom).offset(-8)
+//        }
         
         self.zimuLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(self.timeLabel)
@@ -119,28 +135,28 @@ class DataListOneImageCell: UITableViewCell {
             self.imageOne.hit_setImageWithString(string: image)
             self.imageOne.isHidden = false
             self.titleLabel.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(10)
-                make.left.equalTo(self.contentView.snp.left).offset(10)
+                make.top.equalTo(self.backView.snp.top).offset(10)
+                make.left.equalTo(self.backView.snp.left).offset(10)
                 make.right.equalTo(self.imageOne.snp.left).offset(-10)
             }
             self.timeLabel.snp.remakeConstraints { (make) in
                 make.top.greaterThanOrEqualTo(self.imageOne.snp.bottom).offset(8)
                 make.top.greaterThanOrEqualTo(self.contentLabel.snp.bottom).offset(8)
-                make.left.equalTo(self.contentView.snp.left).offset(8)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
+                make.left.equalTo(self.backView.snp.left).offset(8)
+                make.bottom.equalTo(self.backView.snp.bottom).offset(-8)
             }
         }else{
             self.imageOne.image = nil
             self.imageOne.isHidden = true
             self.timeLabel.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.contentLabel.snp.bottom).offset(8)
-                make.left.equalTo(self.contentView.snp.left).offset(8)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
+                make.left.equalTo(self.backView.snp.left).offset(8)
+                make.bottom.equalTo(self.backView.snp.bottom).offset(-8)
             }
             self.titleLabel.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(10)
-                make.left.equalTo(self.contentView.snp.left).offset(10)
-                make.right.equalTo(self.contentView.snp.right).offset(-10)
+                make.top.equalTo(self.backView.snp.top).offset(10)
+                make.left.equalTo(self.backView.snp.left).offset(10)
+                make.right.equalTo(self.backView.snp.right).offset(-10)
             }
         }
     }

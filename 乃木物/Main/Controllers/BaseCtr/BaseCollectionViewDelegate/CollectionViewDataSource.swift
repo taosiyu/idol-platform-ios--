@@ -21,7 +21,7 @@ class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSOb
     
     private let collectionView: UICollectionView
     
-    private weak var delegate: Delegate!
+    private var delegate: Delegate!
     private let cellIdentifier: String
     //全部的内容
     private var objects:[Object] = [Object]()

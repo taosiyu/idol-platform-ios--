@@ -10,8 +10,11 @@ pod ‘MJRefresh’
 pod ‘SwiftyJSON’
 pod ‘ObjectMapper’
 pod ’YYWebImage‘
+pod 'Bugly'
 
 pod ‘UMengUShare/UI’
-pod ‘UMengUShare/Social/QQ'
+#pod ‘UMengUShare/Social/QQ'
+#pod ‘UMengUShare/Social/ReducedSina'
+pod ‘UMengUShare/Social/WeChat'
 
 end

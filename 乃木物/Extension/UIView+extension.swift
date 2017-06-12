@@ -105,5 +105,14 @@ extension UIView {
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
     }
+    
+    //MARK:设置单边圆角
+    func setRoundedCornersBy(rect:CGRect=CGRect(),corner:UIRectCorner) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corner, cornerRadii: CGSize(width:6,height:6))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
+    }
 
 }

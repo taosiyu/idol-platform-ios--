@@ -13,3 +13,5 @@
 #import <UShareUI/UShareUI.h>
 
 #include <sqlite3.h>
+
+#import <Bugly/Bugly.h>

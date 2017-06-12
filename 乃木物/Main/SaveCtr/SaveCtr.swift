@@ -73,7 +73,7 @@ class SaveCtr: BaseCtr {
     fileprivate func getDataListInfo(isFoot:Bool=false){
         
         if !isFoot {
-            RainSQLiteQuery.getRows(tableName: SQLTableView, filter: "", order: "", limitFrom: 0, to: 10, finishClo: { [unowned self] (models) in
+            RainSQLiteQuery.getRows(tableName: SQLTableView, filter: "", order: "id DESC", limitFrom: 0, to: 10, finishClo: { [unowned self] (models) in
                 self.dataListTableView.endRefreshing()
                 self.sourceData.removeAll()
                 self.sourceData.append(contentsOf: models)
@@ -83,7 +83,7 @@ class SaveCtr: BaseCtr {
         }else{
             let from = (self.dataListTableView.refreshCount-1)*10
             let to = (self.dataListTableView.refreshCount)*10
-            RainSQLiteQuery.getRows(tableName: SQLTableView, filter: "", order: "", limitFrom: from, to: to, finishClo: {[unowned self] (models) in
+            RainSQLiteQuery.getRows(tableName: SQLTableView, filter: "", order: "id DESC", limitFrom: from, to: to, finishClo: {[unowned self] (models) in
                 self.dataListTableView.endRefreshing()
                 self.sourceData.append(contentsOf: models)
                 self.dataListTableView.nowCount = models.count

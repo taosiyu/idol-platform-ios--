@@ -12,7 +12,7 @@ class MembersCtrLayout: UICollectionViewFlowLayout {
 
     override func prepare() {
         super.prepare()
-        let width = (ScreenWidth - 36.CF)/3
+        let width = (ScreenWidth - 31.CF)/2
         let height = width/3*4
         self.minimumLineSpacing = 10
         self.minimumInteritemSpacing = 5

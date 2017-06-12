@@ -25,6 +25,8 @@ class WKWebViewController: UIViewController {
     
     fileprivate var blogModel = ModelFactory.new(type:BlogModel.self)
     
+    fileprivate var popView:PopView!
+    
     fileprivate var progressV:TSYProgressView = {
         let vc = TSYProgressView.init(progress: 0)
         vc.backgroundColor = UIColor.gray
@@ -69,6 +71,7 @@ class WKWebViewController: UIViewController {
         myWebView.addShadowViewWithOffset(offset: 1.5)
         
         self.setupViews()
+        
         //webView
         myWebView.navigationDelegate = self
         
@@ -79,12 +82,47 @@ class WKWebViewController: UIViewController {
     
     //MARK:设置右边的按钮
     private func setRightItem(){
-        let bar = UIBarButtonItem.init(image: UIImage.init(named: "more"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(saveBlog))
+        
+        if self.urlStr.isEmpty {
+            return
+        }
+        
+        self.popView = PopView.init(titles: ["分享","收藏"], view: self.navigationController!.view, clickClo: {[unowned self] (num) in
+            self.saveBlog(index: num)
+        })
+        self.navigationController!.view.addSubview(self.popView)
+        self.popView.moveToFront()
+        self.popView.snp.makeConstraints({ (make) in
+            make.width.equalTo(120)
+            make.height.equalTo(101)
+            make.top.equalTo(self.navigationController!.view.snp.top).offset(60)
+            make.right.equalTo(self.navigationController!.view.snp.right).offset(-12)
+        })
+        
+        
+        let bar = UIBarButtonItem.init(image: UIImage.init(named: "more"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(pop))
         self.navigationItem.rightBarButtonItem = bar
     }
     
-    @objc private func saveBlog(){
-        _ = RainSQLiteQuery.save(tableName: SQLTableView, detailId: self.model.id, data: self.model.getData())
+    @objc private func pop(){
+        if self.popView.isShow {
+            self.popView.hidden()
+        }else{
+            self.popView.show()
+        }
+        
+    }
+    
+    @objc private func saveBlog(index:Int){
+        
+        self.popView.hidden()
+        if index == 1{
+            _ = RainSQLiteQuery.save(tableName: SQLTableView, detailId: self.model.id, data: self.model.getData())
+        }else{
+            UMSocialTool.share(backClo: { (type) in
+                
+            })
+        }
     }
     
     private func loadUrl(){

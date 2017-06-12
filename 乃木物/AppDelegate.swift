@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        //进入主页面
-        self.mainTabBarView()
         
         HitMessage.resetDismissDuration()
         
@@ -25,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //SQLite
         self.setSQlite()
+        
+        //bugfly
+        Bugly.start(withAppId: "e3fad653ab")
+        
+        //进入主页面
+        self.mainTabBarView()
         
         return true
     }
@@ -42,13 +46,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMSocialManager.default().umSocialAppkey = UMENGAPPKEY
         
         //QQ分享
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.QQ, appKey: QQAPIKEY, appSecret: nil, redirectURL: "http://mobile.umeng.com/social")
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.QQ, appKey: QQAPIKEY, appSecret: nil, redirectURL: "http://mobile.umeng.com/social")
+        
+        //微博
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.sina, appKey: SINAAPIKEY, appSecret: "54f59ab29164c09328f937a5be42b087", redirectURL: "https://sns.whalecloud.com/sina2/callback")
+        
+        //微信
+        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatSession, appKey: WEIXIN, appSecret: WEIXINAPPSECRET, redirectURL: "http://mobile.umeng.com/social")
+        
     }
     
     private func mainTabBarView(){
         window = UIWindow.init(frame: UIScreen.main.bounds)
+        
+        let ctr = MainTabBarCtr()
 
-        window?.rootViewController = MainTabBarCtr()
+        window?.rootViewController = ctr
         
         window?.makeKeyAndVisible()
         

@@ -23,6 +23,7 @@ class TitlesSelectTabbarCtr: UIViewController {
     var isSlide:Bool = false{
         didSet{
             self.mainScrollView.isScrollEnabled = isSlide
+            self.mainScrollView.isUserInteractionEnabled = isSlide
         }
     }
     
@@ -170,7 +171,7 @@ import ObjectMapper
 extension TitlesSelectTabbarCtr{
     
     func pushNewCtr(model:DataListModel){
-        let vc = WKWebViewController.init(urlStr: "", title: model.title, model: model)
+        let vc = WKWebViewController.init(urlStr: "show", title: model.title, model: model)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 

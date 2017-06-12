@@ -18,7 +18,7 @@ class MyCtr: BaseCtr {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setLeftBarItem()
     }
     
     override func setupView() {

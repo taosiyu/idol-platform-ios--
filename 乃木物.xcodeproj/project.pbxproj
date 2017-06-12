@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D08440C1ED27E5300DA0304 /* PopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D08440B1ED27E5300DA0304 /* PopView.swift */; };
 		7D12F8F61EBC146A0044F460 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12F8F51EBC146A0044F460 /* AppDelegate.swift */; };
 		7D12F8F81EBC146A0044F460 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12F8F71EBC146A0044F460 /* ViewController.swift */; };
-		7D12F8FB1EBC146A0044F460 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D12F8F91EBC146A0044F460 /* Main.storyboard */; };
 		7D12F8FD1EBC146B0044F460 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D12F8FC1EBC146B0044F460 /* Assets.xcassets */; };
 		7D12F9001EBC146B0044F460 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D12F8FE1EBC146B0044F460 /* LaunchScreen.storyboard */; };
 		7D12F90B1EBC146B0044F460 /* ___Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12F90A1EBC146B0044F460 /* ___Tests.swift */; };
@@ -100,10 +100,10 @@
 
 /* Begin PBXFileReference section */
 		3A6692D9C5561CFD90E572DE /* Pods-乃木物.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-乃木物.release.xcconfig"; path = "Pods/Target Support Files/Pods-乃木物/Pods-乃木物.release.xcconfig"; sourceTree = "<group>"; };
+		7D08440B1ED27E5300DA0304 /* PopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopView.swift; sourceTree = "<group>"; };
 		7D12F8F21EBC146A0044F460 /* 乃木物.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "乃木物.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D12F8F51EBC146A0044F460 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D12F8F71EBC146A0044F460 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7D12F8FA1EBC146A0044F460 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D12F8FC1EBC146B0044F460 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D12F8FF1EBC146B0044F460 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D12F9011EBC146B0044F460 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -249,7 +249,6 @@
 				7D12F9231EBC14790044F460 /* Main */,
 				7D12F8F51EBC146A0044F460 /* AppDelegate.swift */,
 				7D12F8F71EBC146A0044F460 /* ViewController.swift */,
-				7D12F8F91EBC146A0044F460 /* Main.storyboard */,
 				7D12F8FC1EBC146B0044F460 /* Assets.xcassets */,
 				7D12F8FE1EBC146B0044F460 /* LaunchScreen.storyboard */,
 				7D12F9011EBC146B0044F460 /* Info.plist */,
@@ -296,6 +295,7 @@
 				7D60D1861EC549F9008863D8 /* HeadChangeTableView.swift */,
 				7DB840571EC41926003D2914 /* NoGiLogoView.swift */,
 				7D60D18C1EC5628C008863D8 /* SlideView.swift */,
+				7D08440B1ED27E5300DA0304 /* PopView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -625,7 +625,6 @@
 			files = (
 				7D12F9001EBC146B0044F460 /* LaunchScreen.storyboard in Resources */,
 				7D12F8FD1EBC146B0044F460 /* Assets.xcassets in Resources */,
-				7D12F8FB1EBC146A0044F460 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +743,7 @@
 				7DD4A5CE1EBF4B6900B4D0CF /* TitlesTabbar.swift in Sources */,
 				7D54D70F1EBCA1A4008A7B07 /* UIView+extension.swift in Sources */,
 				7DE61BA31EC9A1FF00DAE296 /* RainSQLiteQuery.swift in Sources */,
+				7D08440C1ED27E5300DA0304 /* PopView.swift in Sources */,
 				7DB840481EC2F9E0003D2914 /* LauchCtr.swift in Sources */,
 				7D12F9281EBC160E0044F460 /* HeighLevelFunc.swift in Sources */,
 				7DE61B9F1EC991F000DAE296 /* RainSQLiteDB.swift in Sources */,
@@ -798,14 +798,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7D12F8F91EBC146A0044F460 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7D12F8FA1EBC146A0044F460 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7D12F8FE1EBC146B0044F460 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -857,7 +849,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -900,7 +892,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
